@@ -1,5 +1,7 @@
 package com.jeido.mcnyan;
 
+import com.jeido.mcnyan.http.HttpRequestHandler;
+import com.jeido.mcnyan.message.VnyanMessage;
 import com.mojang.logging.LogUtils;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
@@ -14,13 +16,14 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import org.slf4j.Logger;
 
+
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(McNyan.MODID)
 public class McNyan {
     // Define mod id in a common place for everything to reference
     public static final String MODID = "mcnyan";
     // Directly reference a slf4j logger
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
 
     // The constructor for the mod class is the first code that is run when your mod is loaded.
     // FML will recognize some parameter types like IEventBus or ModContainer and pass them in automatically.
@@ -39,8 +42,7 @@ public class McNyan {
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         // Some common setup code
-        String address = Config.host + ":" + Config.port;
-        LOGGER.info("Nyaaaa ~ !! Associated to '{}' ᓚᘏᗢ", address);
+        HttpRequestHandler.getInstance().sendMessage(new VnyanMessage("Minecraft started"));
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
