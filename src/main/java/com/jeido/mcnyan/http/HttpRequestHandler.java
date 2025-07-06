@@ -5,10 +5,10 @@ import com.jeido.mcnyan.Config;
 import com.jeido.mcnyan.McNyan;
 import com.jeido.mcnyan.message.VnyanMessage;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.slf4j.Logger;
 
@@ -19,12 +19,10 @@ public class HttpRequestHandler {
 
     private static final Logger LOGGER = McNyan.LOGGER;
     private static final String URL = Config.host + ":" + Config.port;
-    private static HttpClient client;
 
 
     private HttpRequestHandler() {
-        try {
-            client = HttpClientBuilder.create().build();
+        try (CloseableHttpClient client = HttpClientBuilder.create().build()) {
             HttpGet get = new HttpGet(URL);
             HttpResponse resp = client.execute(get);
 
@@ -47,7 +45,7 @@ public class HttpRequestHandler {
     }
 
     public void sendMessage(VnyanMessage message) {
-        try {
+        try (CloseableHttpClient client = HttpClientBuilder.create().build()) {
             Gson gson = new Gson();
             HttpPost post = new HttpPost(URL);
             StringEntity stringEntity = new StringEntity(gson.toJson(message));
@@ -67,7 +65,5 @@ public class HttpRequestHandler {
         } catch (IOException e) {
             LOGGER.warn("Nyaa :/ ! Could not send Message '{}' to Vnyan : {}", message.action, e.getMessage());
         }
-
-
     }
 }
