@@ -1,6 +1,5 @@
 package com.jeido.mcnyan.http;
 
-import com.google.gson.Gson;
 import com.jeido.mcnyan.Config;
 import com.jeido.mcnyan.McNyan;
 import com.jeido.mcnyan.message.VnyanMessage;
@@ -46,9 +45,8 @@ public class HttpRequestHandler {
 
     public void sendMessage(VnyanMessage message) {
         try (CloseableHttpClient client = HttpClientBuilder.create().build()) {
-            Gson gson = new Gson();
             HttpPost post = new HttpPost(URL);
-            StringEntity stringEntity = new StringEntity(gson.toJson(message));
+            StringEntity stringEntity = new StringEntity(message.unwrap());
             post.setEntity(stringEntity);
             post.setHeader("Content-type", "application/json");
             HttpResponse resp = client.execute(post);
@@ -59,7 +57,7 @@ public class HttpRequestHandler {
             }
 
             if (Config.debugMode) {
-                LOGGER.info("Sent {}", gson.toJson(message));
+                LOGGER.info("Sent {}", message.unwrap());
             }
 
         } catch (IOException e) {
