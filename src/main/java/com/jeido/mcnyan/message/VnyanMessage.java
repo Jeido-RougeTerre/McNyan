@@ -1,6 +1,5 @@
 package com.jeido.mcnyan.message;
 
-import com.google.gson.Gson;
 import com.jeido.mcnyan.message.payload.EmptyPayload;
 import com.jeido.mcnyan.message.payload.VnyanPayload;
 
@@ -19,7 +18,6 @@ public class VnyanMessage {
     }
 
     public String unwrap() {
-        Gson gson = new Gson();
-        return gson.toJson(this);
+        return String.format("{\"action\":\"%s\",\"payload\":{%s}}", action, payload.serialize());
     }
 }
