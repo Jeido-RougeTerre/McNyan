@@ -1,5 +1,6 @@
 package com.jeido.mcnyan.message.payload;
 
+import com.jeido.mcnyan.utils.ColorUtility;
 import net.minecraft.world.item.ItemStack;
 
 public class ItemStackPayload implements VnyanPayload {
@@ -34,8 +35,8 @@ public class ItemStackPayload implements VnyanPayload {
         if (itemStack.isBarVisible()) {
             s += ", \"itemBarSize\": " + itemStack.getBarWidth();
 
-            String hexColor = String.format("#%06X", (0xFFFFFF & itemStack.getBarColor()));
-            s += ", \"itemBarColor\": " + hexColor;
+
+            s += ", \"itemBarColor\": " + ColorUtility.intToHexColor(itemStack.getBarColor());
         }
 
         s += ", \"itemIsEnchanted\": " + itemStack.isEnchanted();
