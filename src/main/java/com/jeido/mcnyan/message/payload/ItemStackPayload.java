@@ -36,7 +36,7 @@ public class ItemStackPayload implements VnyanPayload {
             s += ", \"itemBarSize\": " + itemStack.getBarWidth();
 
 
-            s += ", \"itemBarColor\": " + ColorUtility.intToHexColor(itemStack.getBarColor());
+            s += ", \"itemBarColor\": \"" + ColorUtility.intToHexColor(itemStack.getBarColor()) + "\"";
         }
 
         s += ", \"itemIsEnchanted\": " + itemStack.isEnchanted();
