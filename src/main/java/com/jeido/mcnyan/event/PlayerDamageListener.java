@@ -3,9 +3,7 @@ package com.jeido.mcnyan.event;
 import com.jeido.mcnyan.McNyan;
 import com.jeido.mcnyan.http.HttpRequestHandler;
 import com.jeido.mcnyan.message.VnyanMessage;
-import com.jeido.mcnyan.message.payload.DamageSourcePayload;
-import com.jeido.mcnyan.message.payload.PlayerDamagePayload;
-import com.jeido.mcnyan.message.payload.Vec3Payload;
+import com.jeido.mcnyan.message.payload.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.damagesource.DamageSource;
@@ -46,7 +44,7 @@ public class PlayerDamageListener {
                                     new Vec3Payload(pos, "source"),
                                     type.msgId(),
                                     entity != null ? entity.getType().toString() : "null",
-                                    weapon!= null ? weapon.toString() : "null"
+                                    weapon != null ? new ItemStackPayload(weapon) : new ItemStackPayload()
                             )
                     )
             ));

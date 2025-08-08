@@ -4,6 +4,7 @@ import com.jeido.mcnyan.McNyan;
 import com.jeido.mcnyan.http.HttpRequestHandler;
 import com.jeido.mcnyan.message.VnyanMessage;
 import com.jeido.mcnyan.message.payload.EquipPayload;
+import com.jeido.mcnyan.message.payload.ItemStackPayload;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.entity.player.Player;
@@ -23,7 +24,7 @@ public class PlayerEquipListener {
 
             HttpRequestHandler.getInstance().sendMessage(new VnyanMessage("EquipmentChange", new EquipPayload(
                     event.getSlot().getName(),
-                    event.getTo().toString()
+                    new ItemStackPayload(event.getTo())
             )));
         }
     }

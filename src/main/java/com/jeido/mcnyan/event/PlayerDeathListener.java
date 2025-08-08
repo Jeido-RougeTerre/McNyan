@@ -4,6 +4,7 @@ import com.jeido.mcnyan.McNyan;
 import com.jeido.mcnyan.http.HttpRequestHandler;
 import com.jeido.mcnyan.message.VnyanMessage;
 import com.jeido.mcnyan.message.payload.DamageSourcePayload;
+import com.jeido.mcnyan.message.payload.ItemStackPayload;
 import com.jeido.mcnyan.message.payload.PlayerDeathPayload;
 import com.jeido.mcnyan.message.payload.Vec3Payload;
 import net.minecraft.client.Minecraft;
@@ -44,7 +45,7 @@ public class PlayerDeathListener {
                                     new Vec3Payload(pos, "source"),
                                     type.msgId(),
                                     entity != null ? entity.getType().toString() : "null",
-                                    weapon!= null ? weapon.toString() : "null"
+                                    weapon != null ? new ItemStackPayload(weapon) : new ItemStackPayload()
                             ),
                             source.getLocalizedDeathMessage(event.getEntity()).getString()
                     )
